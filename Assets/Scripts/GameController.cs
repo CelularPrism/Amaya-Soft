@@ -33,7 +33,6 @@ public class GameController : MonoBehaviour
         Card card = transform.GetChild(numChild).GetComponent<Card>();
         card.SetCardsManager(cardsManager);
         card.SetMainCamera(mainCamera);
-        Debug.Log(transform.childCount);
     }
 
     public void StartGame(CardScriptableObject correctCard, List<CardScriptableObject> listCards)
@@ -65,7 +64,11 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         StartCoroutine(animationManager.LoadNewLevel(0f));
+        SetCorrectAnswer("");
         yield return new WaitForSeconds(2f);
+
+        spawner.ClearLevel();
+        yield return new WaitForSeconds(1f);
         spawner.GenerateLevel();
     }
 }

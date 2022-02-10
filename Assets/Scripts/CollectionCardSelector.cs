@@ -61,7 +61,6 @@ public class CollectionCardSelector : MonoBehaviour
         selectedCards = new List<CardScriptableObject>();
         for (int numCard = 0; numCard < countCards; numCard++)
         {
-            Debug.Log(cardsArray);
             int randNumCard = Random.Range(0, cardsArray.Length);
 
             while (!CheckCard(cardsArray[randNumCard], selectedCards.ToArray()))

@@ -26,13 +26,6 @@ public class Spawner : MonoBehaviour
         GenerateLevel();
     }
 
-    private void ClearLevel()
-    {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
-    }
 
     private void BuildLevel()
     {
@@ -75,10 +68,17 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    public void ClearLevel()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
     public void GenerateLevel()
     {
-        if (transform.childCount > 0)
-            ClearLevel();
+        ClearLevel();
 
         if (numberLevel < levelsArray.Length)
         {
@@ -95,6 +95,7 @@ public class Spawner : MonoBehaviour
         else
         {
             Restart();
+            return;
         }
 
         int countCards = nowLevel.countColumns * nowLevel.countLines;
