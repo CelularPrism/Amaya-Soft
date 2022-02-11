@@ -15,14 +15,4 @@ MonoBehaviour:
   numberLevel: 1
   countLines: 1
   countColumns: 3
-  cardsArray:
-  - {fileID: 11400000, guid: 8d7533bffac1cfa47bb09ce9f82dd738, type: 2}
-  - {fileID: 11400000, guid: 79e9b9a07273b674a9d442c8a3ebd650, type: 2}
-  - {fileID: 11400000, guid: 86f217b902849cf4bb464d50a62d0acf, type: 2}
-  - {fileID: 11400000, guid: 0059dbd64f5dcf64faed7849695800e3, type: 2}
-  - {fileID: 11400000, guid: d4cf5df58545ac2409a1cbe91d1a03a5, type: 2}
-  - {fileID: 11400000, guid: 032ae5d7bb7eaee4ea27c14c2d01ac04, type: 2}
-  - {fileID: 11400000, guid: 756bb4d0b354dd94d88529866acaf176, type: 2}
-  - {fileID: 11400000, guid: d8efe3790a3834942ba3bd8d5a124856, type: 2}
-  - {fileID: 11400000, guid: 637678518e498ff4e8b8741a9bbfbb7b, type: 2}
-  - {fileID: 11400000, guid: 80c128853e67ca8428c3eeea17de77bd, type: 2}
+  cardList: {fileID: 11400000, guid: 09efd283b2fd0b34996259265e6853c8, type: 2}

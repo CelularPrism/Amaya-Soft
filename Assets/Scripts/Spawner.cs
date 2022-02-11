@@ -10,20 +10,15 @@ public class Spawner : MonoBehaviour
     private GameController gameController;
     private Card correctCard;
 
-    private LevelScriptableObject[] levelsArray;
     private LevelScriptableObject nowLevel;
 
     private List<CardScriptableObject> listCards;
 
-    private int numberLevel;
     private float posColumnY;
 
     void Start()
     {
-        numberLevel = 0;
         gameController = transform.GetComponent<GameController>();
-        levelsArray = Resources.LoadAll<LevelScriptableObject>("Levels");
-        GenerateLevel();
     }
 
 
@@ -76,38 +71,14 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    public void GenerateLevel()
+    public void GenerateLevel(LevelScriptableObject level)
     {
         ClearLevel();
-
-        if (numberLevel < levelsArray.Length)
-        {
-            foreach (var level in levelsArray)
-            {
-                if (level.numberLevel == numberLevel + 1)
-                {
-                    numberLevel += 1;
-                    nowLevel = level;
-                    break;
-                }
-            }
-        }
-        else
-        {
-            Restart();
-            return;
-        }
-
+        nowLevel = level;
         int countCards = nowLevel.countColumns * nowLevel.countLines;
 
-        listCards = cardSelector.CollectCards(countCards, nowLevel.cardsArray);
+        listCards = cardSelector.CollectCards(countCards, nowLevel.cardList.cardsArray);
         BuildLevel();
         gameController.StartGame(cardSelector.GetCorrectCard(), listCards);
-    }
-
-    public void Restart()
-    {
-        numberLevel = 0;
-        GenerateLevel();
     }
 }

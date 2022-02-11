@@ -10,14 +10,25 @@ public class GameController : MonoBehaviour
 
     private Spawner spawner;
     private CardsManager cardsManager;
-    private DOTweenMove DOTweenMove;
     private AnimationManager animationManager;
+
+    private LevelScriptableObject[] levelsArray;
+    private LevelScriptableObject nowLevel;
+
+    private int numLevel;
+
+    private void Start()
+    {
+        levelsArray = Resources.LoadAll<LevelScriptableObject>("Levels");
+        numLevel = 0;
+        SetComponents();
+        NextLevel();
+    }
 
     private void SetComponents()
     {
         animationManager = transform.GetComponent<AnimationManager>();
         cardsManager = transform.GetComponent<CardsManager>();
-        DOTweenMove = transform.GetComponent<DOTweenMove>();
         spawner = transform.GetComponent<Spawner>();
     }
 
@@ -35,13 +46,33 @@ public class GameController : MonoBehaviour
         card.SetMainCamera(mainCamera);
     }
 
+    public void NextLevel()
+    {
+        if (numLevel == levelsArray.Length)
+        {
+            numLevel = 0;
+            animationManager.OpenRestart();
+            return;
+        }
+
+        foreach (var level in levelsArray)
+        {
+            if (level.numberLevel == numLevel + 1)
+            {
+                numLevel += 1;
+                nowLevel = level;
+                StartCoroutine(GenerateNextLevel());
+                break;
+            }
+        }
+    }
+
     public void StartGame(CardScriptableObject correctCard, List<CardScriptableObject> listCards)
     {
         if (animationManager == null)
             SetComponents();
 
-        StartCoroutine(animationManager.LoadNewLevel(0f));
-        DOTweenMove.Appearance();
+        animationManager.LoadNewLevel(0f, 3f, true);
 
         for (int numCard = 0; numCard < listCards.Count; numCard++)
         {
@@ -55,20 +86,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public IEnumerator NextLevel()
+    public IEnumerator GenerateNextLevel()
     {
-        DOTweenMove.Disappearance();
-        yield return new WaitForSeconds(2f);
+        animationManager.LoadNewLevel(1f, 3f, false);
+        yield return new WaitForSeconds(5f);
 
-        StartCoroutine(animationManager.LoadNewLevel(255f));
-        yield return new WaitForSeconds(2f);
-
-        StartCoroutine(animationManager.LoadNewLevel(0f));
         SetCorrectAnswer("");
-        yield return new WaitForSeconds(2f);
-
         spawner.ClearLevel();
         yield return new WaitForSeconds(1f);
-        spawner.GenerateLevel();
+        spawner.GenerateLevel(nowLevel);
+        animationManager.LoadNewLevel(0f, 3f, true);
     }
 }

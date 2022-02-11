@@ -17,7 +17,7 @@ public class CardsManager : MonoBehaviour
         if (correctCard == card)
         {
             correctCard = null;
-            StartCoroutine(gameController.NextLevel());
+            gameController.NextLevel();
             return true;
         }
 

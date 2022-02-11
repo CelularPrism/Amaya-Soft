@@ -8,5 +8,5 @@ public class LevelScriptableObject : ScriptableObject
     public int numberLevel;
     public int countLines;
     public int countColumns;
-    public CardScriptableObject[] cardsArray;
+    public CardListScriptableObject cardList;
 }
